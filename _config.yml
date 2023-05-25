@@ -3,6 +3,28 @@ description: 用于记录我在学习和工作中的知识整理
 theme: just-the-docs
 
 url: https://just-the-docs.github.io
+logo: "/assets/images/just-the-docs.png"
+
+# Aux links for the upper right navigation
+aux_links:
+  "GitHub地址":
+    - "https://github.com/poopchen/justdocs"
+
+# Makes Aux links open in a new tab. Default is false
+aux_links_new_tab: false
 
 aux_links:
   Template Repository: https://github.com/just-the-docs/just-the-docs-template
+
+# External navigation links
+nav_external_links:
+  - title: 个人博客
+    url: https://www.cnblogs.com/chenzibai/
+
+heading_anchors: false
+
+last_edit_timestamp:false
+gh_edit_link:false
+
+back_to_top: true
+back_to_top_text: "Back to top"
