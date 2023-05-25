@@ -1,9 +1,9 @@
 ---
 layout: default
 title: 项目管理
-nav_order: 2
+nav_order: 6
 permalink: /项目管理
-has_children: false
+has_children: true
 ---
 
 # 项目管理

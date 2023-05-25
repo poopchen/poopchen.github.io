@@ -10,7 +10,7 @@ has_children: true
 
 ## Table of contents
 
-[TOC]
+
 
 ------
 
