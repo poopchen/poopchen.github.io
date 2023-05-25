@@ -4,21 +4,11 @@ title: 项目管理
 nav_order: 2
 permalink: /项目管理
 has_children: false
-has_toc:false
+has_toc: false
 ---
 
 # 项目管理
 
-{: .no_toc }
-
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-1. TOC
-{:toc}
-</details>
 
 ------
 
