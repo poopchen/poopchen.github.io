@@ -4,19 +4,14 @@ title: 项目管理
 nav_order: 2
 permalink: /项目管理
 has_children: true
+has_toc: false
 ---
 
 # 项目管理
 
-{: .no_toc }
-
-
-
 ## Table of contents
 
-{: .no_toc .text-delta }
-
-1. TOC {:toc}
+[TOC]
 
 
 
@@ -24,7 +19,7 @@ has_children: true
 
 ## 十大管理
 
-### 一、风险管理
+### 一、风险管
 
 ### 二、成本管理
 
