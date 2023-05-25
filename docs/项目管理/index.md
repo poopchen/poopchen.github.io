@@ -3,22 +3,21 @@ layout: default
 title: 项目管理
 nav_order: 2
 permalink: /项目管理
-has_children: true
+has_children: false
 ---
 
 # 项目管理
 
-## Table of contents
+{: .no_toc }
 
-1. TOC
-
-   {:toc}
-
-[TOC]
-
-
-
-
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+- TOC
+{:toc}
+</details>
 
 ------
 
