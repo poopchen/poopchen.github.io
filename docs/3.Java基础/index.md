@@ -9,35 +9,39 @@ has_toc: false
 
 # Java基础
 
-## 《Java核心技术》
+[TOC]
 
-### 一、Java特性
 
-#### 简单性
 
-#### 面向对象
+# 《Java核心技术》
 
-#### 可移植性*
+## 一、Java特性
+
+### 简单性
+
+### 面向对象
+
+### 可移植性*
 
 java是编译型语言和解释型的混合，初衷是可以适配多个平台。比如java中int永远是32位。
 
-#### 网络技能*
+### 网络技能*
 
 java是最先提出并发应对的，因此到后面java的服务端开发占优势。
 
-#### 健壮性*
+### 健壮性*
 
 没有c++中的指针，不用担心内存泄漏等。
 
-#### 安全性*
+### 安全性*
 
 提出在沙盒中运行，具有一定的安全性。
 
-#### 解释型*
+### 解释型*
 
 利用解释器讲java解释为字节码，再在JVM中运行。后期即时编译器可以把部分字节码直接翻译为机械码。
 
-### 二、Java程序设计环境
+## 二、Java程序设计环境
 
 JDK：Java开发工具包。
 
@@ -49,15 +53,15 @@ Javac：Java的编译器，编译语句为：javac Welcome.java，将java文件�
 
 JShell：在终端输入jshell，提供一个“读取-计算-打印”的循环程序。
 
-### 三、Java的基本程序设计结构
+## 三、Java的基本程序设计结构
 
-#### Java应用程序
+### Java应用程序
 
 - Java区分大小写，比如main写为Main，编译不通过。
 - 源代码文件的文件名必须和公共类的名称相同，一个源文件中只能有一个公共类。
 - Java中所有函数都是某个类的方法，Main函数的默认类是shell。
 
-##### main方法
+#### main方法
 
 每一个类都可以有一个main方法。可以用此进行独立测试。比如：
 
@@ -73,14 +77,14 @@ class Employee{
 
 
 
-#### 数据类型
 
-##### 整型
+
+### 整型
 
 - 整型的范围与Java代码的机器无关，同时Java没有任何无符号（unsigned）形式的int、long等。
 - 从Java7开始，可以在数字字面量上加_，比如1_000_000，表示100万。增加易读性。
 
-##### 浮点类型
+### 浮点类型
 
 - 没有F后缀的浮点数，默认为double。
 - 三个特殊的浮点数：正无穷大、负无穷大、NaN。
@@ -92,13 +96,13 @@ if(x == Double.NaN) // is Never true
 if(Double.isNaN(x))  // check whether x is "not a number"
 ```
 
-##### char类型
+### char类型
 
 char类型用单括号引起来。
 
 特殊的转义字符表。
 
-##### unicode类型和char类型*
+#### unicode类型和char类型*
 
 Unicode：不同国际使用不同的编码方法，比如美国ASCII、中国GB 18030和BIG-5（港台）。而Unicode是16位的，统一的世界编码语言。
 
@@ -110,13 +114,51 @@ UTF-16：现在16位的Unicode不能描述全部字符:，UTF-16可以表示所�
 
 Char：Java的Char类型是根据UTF-16编码的，但是**不能完全描述Unicode中的值，推荐使用String描述。**
 
-##### Boolean类型
+### 枚举类
+
+```
+public enum SizeEnum {
+    SMALL(0,"S"),
+    MEDIUM(1,"M"),
+    LARGE(2,"L"),
+    EXTRA_LARGE(3,"XL");
+    private int Code;
+    private String size;
+
+    public int getCode() {
+        return Code;
+    }
+    public String getSize() {
+        return size;
+    }
+    SizeEnum(int code, String m) {
+        size = m;
+        Code = code;
+    }
+    public static int finCode(String Size){
+        for( SizeEnum instance: SizeEnum.values()){
+            if(instance.getSize().equals(Size)){
+                return instance.getCode();
+            }
+        }
+        return 0;
+    }
+}
+```
+
+1. Enum是一个类，可以有多个字段，可以有多个方法
+2. 构造器一定是Private的
+3. 所有枚举类型都是Enum的子类，可以用toString方法：SizeEnum.*EXTRA_LARGE*.toString()
+
+
+
+### Boolean类型
 
 整数和bool不能默认转换。
 
 不同c++，Java不存在非0就是true的规则。
 
-##### 大数
+### 大数
 
 BigInterger：实现任意精度的整数运算。
 
@@ -126,35 +168,39 @@ BigDecimal：实现任意精度的浮点数运算。
 
 > 如果BigDecimal除的商是一个无限循环小数，会报错。
 
-#### 变量、常量
+### 变量、常量
 
-##### null
+#### null
 
 基本类型的变量，有默认值，不可能是null。
 
-#### 运算符
-
-
-
-#### 字符串
+### 运算符
 
 “+” 除了运算符外，可以连接字符串。
 
-字符串比较：== 和equal不一样，要用equal比较值是不是一样；==判断两个对象的地址。
+### 字符串
 
-#### 输入输出
+1.字符串比较：== 和equals不一样，要用equals比较值是不是一样；==判断两个对象的地址。
 
-#### 不可变类
+2.字符串的比较应该为：常量.equals(变量)
+
+3.String.format()，字符串格式化：
+
+![image-20230905162231618](http://img.chenpoop.top/image/202309051622765.png)
+
+### 输入输出
+
+### 不可变类（基本类型）
 
 不可变类：一旦被创建，就不可更改。其本质是在常量池中开辟常量，用引用变量引用。不可变类线程安全。
 
 包括：String、基本类型的封装类、枚举、日期类（LocalDate、LocalTime）、BigDecimal、BigInteger等数值类。
 
-### 四、对象和类
+## 四、对象和类
 
-#### 面向对象
+### 面向对象
 
-##### 类
+#### 类
 
 - 封装：把数据和行为组合在一个包里。封装的特性在于只能用对象的方法对数据进行交互，一个类可以修改数据的存储方法，而对其他对象没有影响。
 
@@ -170,7 +216,7 @@ BigDecimal：实现任意精度的浮点数运算。
 - 聚合（has-a）：A类中包含B类。
 - 继承（is-a）：A类继承B类。
 
-##### 对象*
+### 对象*
 
 对象：
 
@@ -182,27 +228,27 @@ BigDecimal：实现任意精度的浮点数运算。
 
 ![image-20230808151658394](http://img.chenpoop.top/image/202308081516502.png)
 
-#### 预定义类
+### 预定义类
 
-预定义类：
+预定义类：不具备面向对象特性的Java类库（第三方类）中定义好的类，比如Math、Date等。
 
 LocalDate类：相比Date，localDate是线程安全的。
 
-##### 更改器和访问器方法
+#### 更改器和访问器方法
 
 访问器方法：只访问对象，不修改对象。如有返回值，就返回一个新的对象，比如String.toUpperCase()，返回一个新的字符串，原字符串不变。
 
 变更器方法：直接修改对象。比如日历类GreorianCalendar的add()方法。
 
-#### 类
+### 类
 
-##### 多源文件编译
+#### 多源文件编译
 
 可以用javac Employee*.java编译开头的文件。
 
 在编译文件时，发现依赖其他文件，会自动编译所依赖的源文件。
 
-##### 构造器
+#### 构造器
 
 ```
 public class Employee{
@@ -218,19 +264,19 @@ public Employee(String n,double s,...){
 
 构造器里的局部变量name，和该类的name**字段同名，会屏蔽覆盖**，导致字段赋值失败。
 
-##### 隐式参数和显式参数
+#### 隐式参数和显式参数
 
 隐式参数：this，默认每个类的方法都有这个参数。
 
 显式参数：括号里的参数。
 
-##### final*
+#### final*
 
-final修饰符：字段只能被初始化一次，之后不再改变。
+final修饰符：用于修饰字段是，字段只能被初始化一次，之后不再改变。
 
 线程安全：final的线程安全时：**只有一个不可变类的对象被正确的构造出来后，就是线程安全的**。所以在构造过程中是线程不安全的。
 
-##### Static*
+#### Static*
 
 静态方法：静态方法是没有隐式参数this的方法，不能在对象上执行操作。静态方法主要的使用场景：
 
@@ -255,15 +301,15 @@ public class Math{
 }
 ```
 
-##### 深拷贝、浅拷贝
+#### 深拷贝、浅拷贝
 
 浅拷贝：不同引用，同一对象。
 
 深拷贝：拷贝不同对象，同时生成不同引用。
 
-#### 方法参数
+### 方法参数
 
-##### 按值调用、按引用调用*
+#### 按值调用、按引用调用*
 
 按值调用：接收调用者的值。**Java总是按值调用的，传递的参数是一个副本。**
 
@@ -299,13 +345,27 @@ swap(a,b);
 // 但实际上，这个方法交换的是两个副本。
 ```
 
-#### 对象构造
+#### 参数数量可变
 
-##### 重载
+```
+public static double max(double... values){
+	double largest = Double.Negative_infinity;
+	for(double v : values) if(v > largest) largest = v;
+	return largest;
+}
+```
+
+...表示可以接收任意参数的对象。
+
+
+
+### 对象构造
+
+#### 重载
 
 java的构造函数重载，是**以方法名、参数类型确定的**。也就是说，不能有两个名字相同、参数类型相同，当时返回值不同的构造函数，这会导致无法确定具体哪个构造函数。
 
-##### 默认构造器
+#### 默认构造器
 
 **仅当没有其他构造器时，默认会提供一个无参数的构造器**，赋值为默认值：数值为0、布尔为false、对象引用为null。如果至少有一个构造器，但是没有提供无参构造器，则不提供参数是非法的。比如：
 
@@ -316,15 +376,15 @@ e= new Employee();
 // 将会产生错误。
 ```
 
-##### 构造器
+#### 构造器
 
 java的构造器可以调用同类的另一个构造器。
 
-#### 包
+### 包
 
 包是为了将自己和别人的代码库进行分开管理，为了保证包名的唯一性，Java**采用域名的方式作为包名**。同时是逆序的形式。比如com.horstman.corejava。
 
-##### import
+#### import
 
 通过import导入包下的类。*表示这个包下的所有类。
 
@@ -334,7 +394,7 @@ import java.util.*;
 
 如果类名相同出现冲突情况，可以加上具体的类名来区别。
 
-##### package
+#### package
 
 package表示把这个类放进对应的包中，如果没有写package，则放进一个默认的无名包里。**package包相当于类的逻辑集合**。
 
@@ -348,7 +408,117 @@ public class Employee{
 
 包不是封闭的实体，可能被第三方利用，往包里添加其他类。
 
+#### Jar包
 
+jar包就是把相关文件、文件夹进行归档压损为.jar文件。创建命令：
+
+```
+jav cvf jar包名称 文件1 文件2/目录
+```
+
+jar包中有个MANIFEST.MF文件，包括一些文件信息。
+
+jar包可以根据不同的java版本的类。
+
+#### JavaDoc
+
+javadoc用于描述类或者方法的作用，由源文件自动生成一个HTML。
+
+## 五、继承
+
+父类、子类：继承用**extends**表示继承：
+
+```
+public class Manager extends Employee{
+	...
+}
+```
+
+子类覆盖父类字段，使用super调用父类字段。如果忽略super，会导致子类自己调用自己，最终奔溃。**super表示父类的**，也可以调用super的构造器。
+
+```
+public double getSalary{
+	double baseSalary = super.getSalary();
+	return baseSalaty + bouns;
+}
+```
+
+### 多态
+
+java的多态包括：父子类的继承、方法的重写。即出现父类对象的任意地方都可以用子类对象替换。
+
+不能将父类的引用赋值给子类变量。
+
+```
+// 出现父类对象的任意地方都可以用子类对象替换
+Employee e;
+e = new Employee();
+e = new Manager();
+```
+
+### 阻止继承 Final
+
+final：用于修饰类、方法时，说明该类、方法不能被继承！
+
+### 抽象 abstract
+
+1. 一个类被abstract修饰，这个类被称为抽象类；一个方法被abstract修饰，这个方法被称为抽象方法。抽象方法不用给出具体的实现
+2. 抽象类不能实例化对象
+3. 抽象方法不能被private、final和static修饰，因为抽象类要被子类实现
+4. 抽象类有两种：子类中有部分抽象方法没有被定义，则一定要用abstract修饰子类；全部被定义，则不用
+5. 要想使用抽象类，只能创建该抽象类的子类，然后让子类重写抽象类中的方法
+
+### 受保护的 protected
+
+ 1.对本包和所有子类可访问
+
+ 2.本包指的是同一文件
+
+### 所有的超类 Object
+
+#### clone()
+
+![image-20230905154226380](http://img.chenpoop.top/image/202309051542527.png)
+
+clone()采用浅拷贝，比如house2=house1.clone()，浅拷贝会其他基本类型的值都复制过去；但是如果是引用类型，则复制的是引用。
+
+#### equal()
+
+equal()的判断是==，即如果是基本类型，判断值；如果是引用类型，判断地址。
+
+#### hasCode()
+
+返回的是对象的内存地址的整数表示。
+
+### 泛型列表ArrayList
+
+ArrayList：动态数组
+
+1. 动态扩容：执行Add、AddRange、Insert、InsertRange等添加元素的方法，都会检查内部数组的容量是否不够了，如果是，它就会以当前容量的两倍来重新构建一个数组，将旧元素Copy到新数组中，然后丢弃旧数组。消耗性能。
+
+### 包装器和拆箱、装箱
+
+#### 包装器
+
+为了把基础类型包装到变量中
+
+![image-20230905160949537](http://img.chenpoop.top/image/202309051609614.png)
+
+#### 拆箱、装箱
+
+```
+var list = new ArrayList<Integer>();
+// 装箱，把int转换为Integer
+list.add(3);
+// 拆箱，把Integer转换为int
+int n = list.get(0);
+```
+
+1. 拆箱和装箱是编译器的工作，并不是虚拟机的。
+
+
+
+# 《Spring实战》
 
 java虚拟机（JVM）
 
@@ -430,8 +600,6 @@ min、max
 
 同一进程下线程共享资源
 
-
-
 使用场景：
 
 tomcat内部采用多线程
@@ -455,12 +623,6 @@ synchronized
 Comparable ：单一的排序方法
 
 Comparator ：可以定义多种排序方法
-
-## 数据库
-
-### ACID
-
-原子性、一致性、隔离性、持续性
 
 # IDEA快捷键
 
