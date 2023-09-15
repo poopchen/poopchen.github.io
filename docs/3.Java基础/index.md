@@ -9,7 +9,7 @@ has_toc: false
 
 # Java基础
 
-[TOC]
+
 
 
 
@@ -443,6 +443,8 @@ public double getSalary{
 }
 ```
 
+Java支持单一继承
+
 ### 多态
 
 java的多态包括：父子类的继承、方法的重写。即出现父类对象的任意地方都可以用子类对象替换。
@@ -516,31 +518,103 @@ int n = list.get(0);
 
 1. 拆箱和装箱是编译器的工作，并不是虚拟机的。
 
+反射
+
+## JavaWeb
+
+### Servlet主要思想
+
+![image-20230911105454840](http://img.chenpoop.top/image/202309111054975.png)
+
+### servlet生命周期
+
+![image-20230911141046322](http://img.chenpoop.top/image/202309111410408.png)
+
+过滤器Filter：对请求或者响应进行过滤处理，可以用于校验等。
+
+监听器Listener：对一些对象的生命周期或者执行过程进行监听，比如session、request等。
+
+### JSP
+
+- Jsp全称Java Server Pages，顾名思义就是运行在java服务器中的页面。由Sun 公司专门为了解决动态生成HTML文档的技术。
+
+- Jsp能够以HTML页面的方式呈现数据，是一个可以嵌入Java代码的HTML。
+
+- 其本质是当tomcat运行JSP时，先把JSP解析为一个servlet文件（解析出来的文件在tomcat的work文件夹下），把jsp中html部分。
+
+  <%%>：在jsp中写java代码。
+
+  <%=%>：将数据显示到页面，如同out.println
+
+## SSM
+
+SSM：即Spring、Spring MVC、mybatis
+
+分为四层：
+
+持久层：DAO层，使用mybatis进行数据库交互。
+
+业务层：Service层，使用Spring进行业务处理。
+
+表现层：控制层，Spring MVC，接口入口，调用业务层。
+
+视图层：View层，使用前端架构或者jsp。
+
+### Spring
+
+### spring mvc
+
+注解：
+
+@RequestMapping：提供路由信息，将HTTP请求映射到对应函数。
+
+@RestController：控制器注解，说明将响应结果直接返回客户端。
+
+### Mybatis
+
+mybatis和JDBC
+
+1. mybatis基于JDBC，Java和数据库操作只能通过JDBC。
+2. JDBC每次都要用connection，statement来操作数据库，比较繁琐。mybatis自动生成连接。
+3. mybatis实现了ORM（对象关系映射），可以通过xml、注解的方法实现实体类和数据库列的映射。
+
+注解：
+
+
+
+
+
+## Springboot
+
+springboot采用约定大于配置思想，简化spring的xml配置为注解。
+
+springboot有自带的tomcat服务器。
+
+对于使用了 `@ComponentScan`, `@ConfigurationPropertiesScan`, `@EntityScan` 或者 `@SpringBootApplication` 注解的Spring Boot程序，应该避免使用default包。
+
+`@Entity` 类只有定义在启动类的子包下才能被扫描加载到。
+
+spring-boot-devtools会在classpath上的文件发生变化时自动重启。
+
+
+
 
 
 # 《Spring实战》
 
-java虚拟机（JVM）
+### 注解
 
-垃圾回收（GC）
+@Component：将类标记为Spring组件。
+
+@Bean：通过这个方法，产生一个实例。引用第三方的类库，只能用Bean。
+
+Starter是一系列开箱即用的依赖。
 
 
 
 ## 类和对象
 
-面向对象：封装、继承、多态
 
-Private：
-
-protected：
-
-public：
-
-
-
-package：防止类同名冲突
-
-import：告诉编译器去哪个包加载类
 
 ## Java集合
 
@@ -627,3 +701,120 @@ Comparator ：可以定义多种排序方法
 # IDEA快捷键
 
 Getter和Setter方法的快捷键：右键greater
+
+
+
+# 其他
+
+## MAVEN
+
+Maven是为JAVA项目提供管理和构建的工具。
+
+### 项目结构
+
+![image-20230915151456198](http://img.chenpoop.top/image/202309151514301.png)
+
+maven的pom主要为：
+
+```
+<project ...>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.itranswarp.learnjava</groupId>
+	<artifactId>hello</artifactId>
+	<version>1.0</version>
+	<packaging>jar</packaging>
+	<properties>
+        ...
+	</properties>
+	<dependencies>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.2</version>
+        </dependency>
+	</dependencies>
+</project>
+```
+
+maven通过groupId，artifactId和version确定唯一的第三方包。groupId是组织，artifactId是包名，version是版本。
+
+使用`<dependency>`声明一个依赖后，Maven就会自动下载这个依赖包并把它放到classpath中。
+
+### 依赖
+
+maven解决了jar包复杂依赖关系的问题，同时提供了几种包的依赖scope：
+
+![image-20230915152010040](http://img.chenpoop.top/image/202309151520118.png)
+
+#### Maven镜像
+
+可以在用户的.m2目录下，setting.xml中配置文件，设置镜像信息。
+
+```
+<settings>
+    <mirrors>
+        <mirror>
+            <id>aliyun</id>
+            <name>aliyun</name>
+            <mirrorOf>central</mirrorOf>
+            <!-- 国内推荐阿里云的Maven镜像 -->
+            <url>https://maven.aliyun.com/repository/central</url>
+        </mirror>
+    </mirrors>
+</settings>
+```
+
+### 构建
+
+maven的构建分为：lifecycle、phase和goal。分别对应生命周期，步骤，步骤中的方法。lifecycle中由多个phase组成，phase由多个goal组成。goal是最小任务单位。
+
+goal类似于：tomcat:run
+
+maven的phase是从开始，执行到某一phase为止。比如clear，就是从开始到clear执行完成为止。
+
+### 插件
+
+maven的phase其实是通过插件实现了，maven去找对应名称的插件，并执行。可以使用自定义插件，在package周期中添加插件。
+
+```
+<project>
+    ...
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.1</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+                            ...
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
+```
+
+### 模块管理
+
+maven可以把多个项目通过模块进行管理。其中parent的pom部分表示子pom中有相同的依赖或者属性。
+
+模块和模块之间也可以通过dependency进行依赖管理。
+
+### mvnw
+
+mvnw：是为了让项目选择指定的maven版本，而不是系统版本。
+
+```
+-- 下载指定的mvnw
+mvn -N io.takari:maven:0.7.6:wrapper
+```
+
+然后这个项目的mvn指令都用mvnw。
