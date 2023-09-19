@@ -606,9 +606,21 @@ spring-boot-devtools会在classpath上的文件发生变化时自动重启。
 
 @Component：将类标记为Spring组件。
 
+@componentScan:默认扫描位于这个包以及子包下的component的注解，注入为bean。
+
+@autowired：装配bean，可以用于属性和方法的注解。方法的话尝试装配。
+
+第三方库的组件不能通过@Component和@autowired进行自动化装配，因此只能显式装配。
+
+
+
+
+
 @Bean：通过这个方法，产生一个实例。引用第三方的类库，只能用Bean。
 
 Starter是一系列开箱即用的依赖。
+
+classpath：编译后的classes文件下的文件路径。
 
 
 
